@@ -72,7 +72,7 @@ LIBNAME=xdr_s.$(A)
 # -Gd: use __cdecl calling convention by default
 # -Zc:wchar_t makes wchar_t a native type. Required for C++ ABI compatibility
 CFLAGS+=-GF -Gd -Zc:wchar_t -nologo
-DEFS+=-D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_DEPRECATE -DWIN64 -D_CONSOLE
+DEFS+=-D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_DEPRECATE -DWIN32 -D_CONSOLE
 LDFLAGS+=-nologo
 
 INCLUDES = -I$(top_srcdir_win32) -I$(top_builddir_win32) \
@@ -82,8 +82,8 @@ INCLUDES = -I$(top_srcdir_win32) -I$(top_builddir_win32) \
 COMPILE_C=	$(CC) $(RUNTIME) $(CPPFLAGS) $(DEFS) $(CFLAGS) $(INCLUDES)
 
 # linking C code
-LINK_C =	$(LD) -subsystem:console -machine:x64 $(LDFLAGS)
-DLL_LINK_C =	$(LD) -dll -subsystem:console -machine:x64 $(LDFLAGS)
+LINK_C =	$(LD) -subsystem:console -machine:x86 $(LDFLAGS)
+DLL_LINK_C =	$(LD) -dll -subsystem:console -machine:x86 $(LDFLAGS)
 DLL_LDEXTRA =	-manifest
 EXE_LDEXTRA =		-libpath:$(top_builddir)/$(PLATFORM) -manifest
 EXE_STAT_LDEXTRA =	-libpath:$(top_builddir)/$(PLATFORM) -manifest
@@ -116,7 +116,7 @@ LIBXDR_OBJS = $(LIBXDR_SRCS:%.c=$(PLATFORM)/%.$(O))
 LIBXDR_OBJS_STAT = $(LIBXDR_SRCS:%.c=$(PLATFORM)/%.$(STATIC_O))
 LIBXDR_DEPS = ws2_32.lib
 LIBXDR_LDFLAGS = -implib:$(PLATFORM)/$(IMPNAME)
-LIBXDR_ARFLAGS=-nologo -subsystem:console -machine:x64
+LIBXDR_ARFLAGS=-nologo -subsystem:console -machine:x86
 
 XDR_LIBRARIES = $(PLATFORM)/$(SHRNAME) $(PLATFORM)/$(LIBNAME)
 
