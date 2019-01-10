@@ -230,7 +230,7 @@ void init_tmpdir (opts *o)
 
   if (o->tmpdir)
     {
-      p = (char *) malloc (strlen(o->tmpdir));
+      char * p = (char *) malloc (strlen(o->tmpdir));
       strcpy (p, o->tmpdir);
       if (!mkdir_p (p, 0700))
         {
