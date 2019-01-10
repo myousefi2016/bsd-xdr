@@ -37,6 +37,8 @@
 #include "test_data.h"
 #include "test_xdrs.h"
 
+#pragma warning(disable: 4005)
+
 #if defined(_MSC_VER)
 # define isnan _isnan
 #endif

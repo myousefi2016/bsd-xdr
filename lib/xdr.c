@@ -45,6 +45,8 @@
 
 #include "xdr_private.h"
 
+#pragma warning(disable: 4267)
+
 /*
  * constants specific to the xdr "protocol"
  */

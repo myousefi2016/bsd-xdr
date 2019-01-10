@@ -62,6 +62,10 @@
 
 #include "xdr_private.h"
 
+#pragma warning(disable: 4311)
+#pragma warning(disable: 4267)
+#pragma warning(disable: 4244)
+
 enum xprt_stat
 {
   XPRT_DIED,

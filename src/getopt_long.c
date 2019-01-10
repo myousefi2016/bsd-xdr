@@ -38,6 +38,8 @@
 #include <string.h>
 #include "getopt.h"
 
+#pragma warning(disable: 4459)
+
 #ifndef _DIAGASSERT
 #define _DIAGASSERT(e)
 #endif

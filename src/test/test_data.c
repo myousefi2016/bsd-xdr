@@ -36,6 +36,8 @@
 
 #include "test_data.h"
 
+#pragma warning(disable: 4005)
+
 #if defined(_MSC_VER)
 # define isnan _isnan
 #endif

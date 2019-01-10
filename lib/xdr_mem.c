@@ -46,6 +46,8 @@
 
 #include "xdr_private.h"
 
+#pragma warning(disable: 4311)
+
 static void xdrmem_destroy (XDR *);
 static bool_t xdrmem_getlong_aligned (XDR *, long *);
 static bool_t xdrmem_putlong_aligned (XDR *, const long *);

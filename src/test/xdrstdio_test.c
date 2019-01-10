@@ -34,6 +34,8 @@
 #include "test_data.h"
 #include "test_xdrs.h"
 
+#pragma warning(disable: 4456)
+
 const char *program_name;
 
 void

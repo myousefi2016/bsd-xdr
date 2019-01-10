@@ -41,6 +41,8 @@
 
 #include "xdr_private.h"
 
+#pragma warning(disable: 4311)
+
 #ifdef _MSC_VER
 # pragma warning(push)
 # pragma warning(disable:4100)

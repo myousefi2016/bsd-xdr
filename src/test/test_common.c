@@ -41,6 +41,9 @@
 #include "test_common.h"
 #include "test_data.h"
 
+#pragma warning(disable: 4267)
+#pragma warning(disable: 4244)
+
 void
 set_program_name (const char *name)
 {
