@@ -38,7 +38,7 @@
 #include "test_xdrs.h"
 
 #if defined(_MSC_VER)
-# define isnan _isnan
+//# define isnan _isnan
 #endif
 
 #define TEST_BASIC_TYPE_CORE_FUNCTION_DEF( FUNC, TYPE, TYPEFMT ) \

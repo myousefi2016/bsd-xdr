@@ -72,8 +72,8 @@ static void xwarnx(const char *, ...);
 static char *place = EMSG; /* option letter processing */
 
 /* XXX: set optreset to 1 rather than these two */
-static int nonopt_start = -1; /* first non option argument (for permute) */
-static int nonopt_end = -1;   /* first option after non options (for permute) */
+static int nonopt_start_g = -1; /* first non option argument (for permute) */
+static int nonopt_end_g = -1;   /* first option after non options (for permute) */
 
 /* Error messages */
 static const char recargchar[] = "option requires an argument -- %c";
@@ -178,26 +178,26 @@ getopt_internal(int nargc, char * const *nargv, const char *options)
 		optind = 1;
 
 	if (optreset)
-		nonopt_start = nonopt_end = -1;
+		nonopt_start_g = nonopt_end_g = -1;
 start:
 	if (optreset || !*place) {		/* update scanning pointer */
 		optreset = 0;
 		if (optind >= nargc) {          /* end of argument vector */
 			place = EMSG;
-			if (nonopt_end != -1) {
+			if (nonopt_end_g != -1) {
 				/* do permutation, if we have to */
-				permute_args(nonopt_start, nonopt_end,
+				permute_args(nonopt_start_g, nonopt_end_g,
 				    optind, nargv);
-				optind -= nonopt_end - nonopt_start;
+				optind -= nonopt_end_g - nonopt_start_g;
 			}
-			else if (nonopt_start != -1) {
+			else if (nonopt_start_g != -1) {
 				/*
 				 * If we skipped non-options, set optind
 				 * to the first of them.
 				 */
-				optind = nonopt_start;
+				optind = nonopt_start_g;
 			}
-			nonopt_start = nonopt_end = -1;
+			nonopt_start_g = nonopt_end_g = -1;
 			return -1;
 		}
 		if (*(place = nargv[optind]) != '-') {  /* found non-option */
@@ -218,21 +218,21 @@ start:
 				return -1;
 			}
 			/* do permutation */
-			if (nonopt_start == -1)
-				nonopt_start = optind;
-			else if (nonopt_end != -1) {
-				permute_args(nonopt_start, nonopt_end,
+			if (nonopt_start_g == -1)
+				nonopt_start_g = optind;
+			else if (nonopt_end_g != -1) {
+				permute_args(nonopt_start_g, nonopt_end_g,
 				    optind, nargv);
-				nonopt_start = optind -
-				    (nonopt_end - nonopt_start);
-				nonopt_end = -1;
+				nonopt_start_g = optind -
+				    (nonopt_end_g - nonopt_start_g);
+				nonopt_end_g = -1;
 			}
 			optind++;
 			/* process next argument */
 			goto start;
 		}
-		if (nonopt_start != -1 && nonopt_end == -1)
-			nonopt_end = optind;
+		if (nonopt_start_g != -1 && nonopt_end_g == -1)
+			nonopt_end_g = optind;
 		if (place[1] && *++place == '-') {	/* found "--" */
 			place++;
 			return -2;
@@ -313,12 +313,12 @@ getopt(int nargc, char * const *nargv, const char *options)
 		 * We found an option (--), so if we skipped non-options,
 		 * we have to permute.
 		 */
-		if (nonopt_end != -1) {
-			permute_args(nonopt_start, nonopt_end, optind,
+		if (nonopt_end_g != -1) {
+			permute_args(nonopt_start_g, nonopt_end_g, optind,
 				       nargv);
-			optind -= nonopt_end - nonopt_start;
+			optind -= nonopt_end_g - nonopt_start_g;
 		}
-		nonopt_start = nonopt_end = -1;
+		nonopt_start_g = nonopt_end_g = -1;
 		retval = -1;
 	}
 	return retval;
@@ -360,12 +360,12 @@ getopt_long(int nargc,
 			 * We found an option (--), so if we skipped
 			 * non-options, we have to permute.
 			 */
-			if (nonopt_end != -1) {
-				permute_args(nonopt_start, nonopt_end,
+			if (nonopt_end_g != -1) {
+				permute_args(nonopt_start_g, nonopt_end_g,
 				    optind, nargv);
-				optind -= nonopt_end - nonopt_start;
+				optind -= nonopt_end_g - nonopt_start_g;
 			}
-			nonopt_start = nonopt_end = -1;
+			nonopt_start_g = nonopt_end_g = -1;
 			return -1;
 		}
 		if ((has_equal = strchr(current_argv, '=')) != NULL) {

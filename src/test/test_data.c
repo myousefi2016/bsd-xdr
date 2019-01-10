@@ -37,7 +37,7 @@
 #include "test_data.h"
 
 #if defined(_MSC_VER)
-# define isnan _isnan
+//# define isnan _isnan
 #endif
 
 const int INT_DATA[TEST_DATA_SZ] =
